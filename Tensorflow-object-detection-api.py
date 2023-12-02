@@ -40,11 +40,11 @@ from utils import visualization_utils as vis_util
 
 # What model to download.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
-MODEL_FILE = MODEL_NAME + '.tar.gz'
+MODEL_FILE = f'{MODEL_NAME}.tar.gz'
 DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
-PATH_TO_CKPT = MODEL_NAME + '/frozen_inference_graph.pb'
+PATH_TO_CKPT = f'{MODEL_NAME}/frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
 PATH_TO_LABELS = os.path.join('C:/Users/klysm/Desktop/TCX/TensorFlow/models/research/object_detection/data', 'mscoco_label_map.pbtxt')
@@ -110,7 +110,10 @@ def load_image_into_numpy_array(image):
 # image2.jpg
 # If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
 PATH_TO_TEST_IMAGES_DIR = 'C:/Users/klysm/Desktop/TCX/TensorFlow/models/research/object_detection/test_images'
-TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 3) ]
+TEST_IMAGE_PATHS = [
+    os.path.join(PATH_TO_TEST_IMAGES_DIR, f'image{i}.jpg')
+    for i in range(1, 3)
+]
 
 # Size, in inches, of the output images.
 IMAGE_SIZE = (12, 8)
@@ -120,7 +123,7 @@ IMAGE_SIZE = (12, 8)
 print('chegou aqui')
 with detection_graph.as_default():
   with tf.Session(graph=detection_graph) as sess:
-    
+
     image_np = cv2.imread('C:/Users/klysm/Desktop/TCX/TensorFlow/models/research/object_detection/test_images/image1.jpg')
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
     image_np_expanded = np.expand_dims(image_np, axis=0)
